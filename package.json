@@ -43,7 +43,7 @@
         "clean": "yb clean_all && npm run clear:docs",
         "clean:ts": "yb clean_ts",
         "build:ts": "npm run clean:ts && tsc",
-        "build_lite": "npm run precompile_full && npm run clean && npm run build:esm && npm run build:cjs && npm run build:types && npm run build:docs",
+        "build_lite": "npm run precompile && npm run clean && npm run build:cjs && npm run build:types",
         "build": "npm run precompile_full && npm run clean && npm run build:esm && npm run build:cjs && npm run build:types && npm run lint && npm run test && npm run build:docs",
         "test:cjs": "npm run build:cjs && jest --config=jest.config-cjs.cjs --passWithNoTests",
         "test:ts": "jest --config=jest.config-ts.cjs --passWithNoTests",
@@ -57,7 +57,11 @@
         "republish_forced": "npm run build_lite && npx version-select && yb genprojmeta && npm publish",
         "deps": "echo Finding loops in .js requires... & del deps.png & madge dist -c -i deps.png && deps.png",
         "deps_all": "echo Generating full .js requires tree... & del deps.png & madge dist -i deps.png && deps.png",
-        "deps_orphans": "echo Finding orphans .js requires... & del deps.png & madge dist --orphans -i deps.png && deps.png"
+        "deps_orphans": "echo Finding orphans .js requires... & del deps.png & madge dist --orphans -i deps.png && deps.png",
+        "watch:test:cjs_mocha": "mocha './lib/cjs/**/*.test.js' -w",
+        "watch:test:cjs_jest": "jest --config=jest.config-cjs.cjs --passWithNoTests -w",
+        "test:cjs_jest": "npm run build:cjs && jest --config=jest.config-cjs.cjs --passWithNoTests",
+        "test:cjs_mocha": "npm run build:cjs && mocha './lib/cjs/**/*.test.js'"
     },
     "devDependencies": {
         "@babel/cli": "7.15.4",
